@@ -7,7 +7,7 @@ const Footer = () => {
       <ul>
         <li className="font-medium pb-2">Contato</li>
         {footer.about.map((item) => (
-          <li>
+          <li key={item.label}>
             {item.label}
           </li>
         ))}
@@ -16,7 +16,7 @@ const Footer = () => {
       <ul>
         <li className="font-medium pb-2">Redes Sociais</li>
         {footer.socialMedia.map((item) => (
-          <li>
+          <li key={item.platform}>
             {item.platform}
           </li>
         ))}
@@ -25,7 +25,7 @@ const Footer = () => {
       <ul>
         <li className="font-medium pb-2">Sobre</li>
         {footer.quickLinks.map((item) => (
-          <li>
+          <li  key={item.label}>
             {item.label}
           </li>
         ))}
