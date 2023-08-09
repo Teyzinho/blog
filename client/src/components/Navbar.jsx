@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const Navbar = () => {
   return (
-    <nav className="w-full h-16 flex justify-between px-40 items-center shadow-md">
+    <nav className="w-full h-16 flex justify-between px-3 sm:px-40 items-center shadow-md">
         <div className="flex gap-2 items-center text-xl">
             <span className="font-semibold">
                 Blog

@@ -1,9 +1,38 @@
-import React from 'react'
+import React from "react";
+import { footer } from "../constants";
 
 const Footer = () => {
   return (
-    <div>Footer</div>
-  )
-}
+    <footer className="w-full text-white px-3 sm:px-40 bg-gray-950 py-16 flex flex-wrap gap-x-28 gap-y-8">
+      <ul>
+        <li className="font-medium pb-2">Contato</li>
+        {footer.about.map((item) => (
+          <li>
+            {item.label}
+          </li>
+        ))}
+      </ul>
 
-export default Footer
+      <ul>
+        <li className="font-medium pb-2">Redes Sociais</li>
+        {footer.socialMedia.map((item) => (
+          <li>
+            {item.platform}
+          </li>
+        ))}
+      </ul>
+
+      <ul>
+        <li className="font-medium pb-2">Sobre</li>
+        {footer.quickLinks.map((item) => (
+          <li>
+            {item.label}
+          </li>
+        ))}
+      </ul>
+
+    </footer>
+  );
+};
+
+export default Footer;
