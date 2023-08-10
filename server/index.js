@@ -7,7 +7,7 @@ const authRoutes = require('./routes/auth')
 
 //Config
 const app = express()
-app.use(express.json)
+app.use(express.json());
 app.use(cors());
 
 // env Config

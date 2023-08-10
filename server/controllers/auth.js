@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 
-const salt = bcrypt.genSaltSync(10);
 const secret = process.env.SECRET;
 
 exports.register = async (req, res) => {
@@ -22,10 +21,6 @@ exports.register = async (req, res) => {
             password: hashedPassword
         })
 
-        const token = jwt.sign({ userId: newUser._id }, secret, { expiresIn: '1h' });
-
-        await newUser.save();
-
         res.status(201).json(newUser)
     } catch (error) {
         console.error(error);
@@ -41,11 +36,11 @@ exports.login = async (req, res) => {
         const passOk = bcrypt.compareSync(password, userDoc.password) // usa a senha encriptada para comparar com a senha do banco do usuário
 
         if (passOk) {
-            jwt.sign({ username, id: userDoc._id }, secret, {}, (error, token) => {
+            jwt.sign({ email, id: userDoc._id }, secret, {}, (error, token) => {
                 if (error) throw error;
                 res.cookie('token', token).json({
                     id: userDoc._id,
-                    username,
+                    email,
                 })
             })
         } else {
