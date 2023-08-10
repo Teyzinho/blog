@@ -9,6 +9,7 @@ import Login from "./routes/Login.jsx";
 import App from "./App.jsx";
 import ErrorPage from "./routes/ErrorPage";
 import Register from "./routes/Register";
+import Post from "./routes/Post";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
-      }
+      },
+      {
+        path: '/post/:id',
+        element: <Post />
+      },
     ]
   },
   {
