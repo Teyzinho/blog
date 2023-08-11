@@ -24,9 +24,9 @@ const PostCard = () => {
           No coração de uma exuberante floresta, onde os raios de sol dançam
           entre as copas das árvores, a vida se desenrola
         </p>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <Tag />
+        <div className="flex flex-wrap gap-2">
+          <Tag />
+        </div>
       </div>
     </div>
   );
