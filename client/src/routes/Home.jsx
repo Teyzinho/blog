@@ -1,5 +1,6 @@
 import React from 'react'
 import Banner from '../components/Banner'
+import Feed from '../components/Feed'
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
 
       <Banner />
 
+      <Feed />
 
     </main>
   )
