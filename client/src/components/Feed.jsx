@@ -3,8 +3,13 @@ import PostCard from "./PostCard";
 
 const Feed = () => {
   return (
-    <main>
-      <div className="grid grid-cols-3 gap-x-7 gap-y-20 mt-28">
+    <main className="container_padding">
+
+        <button className="mt-8 sm:mt-28">
+            Aplicar filtros
+        </button>
+
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-x-7 gap-y-20 mt-8 sm:mt-28">
         <PostCard />
         <PostCard />
         <PostCard />

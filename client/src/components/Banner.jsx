@@ -5,7 +5,7 @@ import Tag from "./Tag";
 
 const Banner = () => {
   return (
-    <section className="w-full sm:h-[720px] overflow-hidden mt-8 sm:mt-[70px] relative">
+    <section className="w-full sm:h-[720px] overflow-hidden mt-8 sm:mt-[70px] relative md:px-20 xl:px-40">
       <h4 className="py-2 px-3 font-medium sm:hidden">Destaque</h4>
       <Link to="/" className="group overflow-hidden relative">
         <img
@@ -45,6 +45,7 @@ const Banner = () => {
           </div>
         </div>
       </Link>
+      <div className="w-full h-px bg-gray-700 mt-8"/>
     </section>
   );
 };

@@ -3,7 +3,7 @@ import { footer } from "../constants";
 
 const Footer = () => {
   return (
-    <footer className="w-full text-white px-3 sm:px-40 bg-gray-950 py-16 flex flex-wrap gap-x-28 gap-y-8 mt-36">
+    <footer className="w-full text-white px-3 container_padding bg-gray-950 py-16 flex flex-wrap gap-x-28 gap-y-8 mt-36">
       <ul>
         <li className="font-medium pb-2">Contato</li>
         {footer.about.map((item) => (

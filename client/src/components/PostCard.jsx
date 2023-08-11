@@ -9,7 +9,7 @@ const PostCard = () => {
         <img
           src="/public/banner.png"
           alt="PostImg"
-          className="w-full h-72 object-cover"
+          className="w-full h-44 sm:h-72 object-cover"
         />
       </Link>
       <div className="flex flex-col gap-2 mt-2">
@@ -18,9 +18,9 @@ const PostCard = () => {
           <p>19 Jan 2023</p>
         </div>
         <Link to="/">
-          <h3 className="text-3xl font-medium">Titulo da Publicação</h3>
+          <h3 className="text-xl sm:text-3xl font-medium">Titulo da Publicação</h3>
         </Link>
-        <p>
+        <p className="text-sm sm:text-base">
           No coração de uma exuberante floresta, onde os raios de sol dançam
           entre as copas das árvores, a vida se desenrola
         </p>
