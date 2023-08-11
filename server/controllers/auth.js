@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
+
+dotenv.config();
 
 const secret = process.env.SECRET;
 
@@ -41,6 +44,7 @@ exports.login = async (req, res) => {
                 res.cookie('token', token).json({
                     id: userDoc._id,
                     email,
+                    name: userDoc.name
                 })
             })
         } else {
