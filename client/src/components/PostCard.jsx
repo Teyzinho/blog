@@ -9,7 +9,7 @@ const PostCard = () => {
         <img
           src="/public/banner.png"
           alt="PostImg"
-          className="w-full h-44 sm:h-72 object-cover"
+          className="w-full h-44 sm:h-60 2xl:h-72 object-cover"
         />
       </Link>
       <div className="flex flex-col gap-2 mt-2">

@@ -5,13 +5,13 @@ import Tag from "./Tag";
 
 const Banner = () => {
   return (
-    <section className="w-full sm:h-[720px] overflow-hidden mt-8 sm:mt-[70px] relative md:px-20 xl:px-40">
+    <section className="w-full sm:h-[720px] overflow-hidden mt-8 sm:mt-[70px] relative md:px-20 xl:px-36 2xl:px-40">
       <h4 className="py-2 px-3 font-medium sm:hidden">Destaque</h4>
-      <Link to="/" className="group overflow-hidden relative">
+      <Link to="/" className="group overflow-hidden w-full h-full relative block">
         <img
           src="/public/banner.png"
           alt="banner"
-          className="object-cover filter brightness-75 transition-all w-full h-full group-hover:scale-105"
+          className="object-cover filter brightness-75 transition-all w-full h-full sm:group-hover:scale-105"
         />
         {/* Desktop banner Content */}
         <div className="text-white absolute left-6 bottom-16 hidden flex-col gap-3 sm:flex">
@@ -45,7 +45,7 @@ const Banner = () => {
           </div>
         </div>
       </Link>
-      <div className="w-full h-px bg-gray-700 mt-8"/>
+      <div className="w-full h-px bg-gray-700 mt-8 sm:hidden"/>
     </section>
   );
 };
