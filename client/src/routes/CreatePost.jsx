@@ -7,11 +7,11 @@ const CreatePost = () => {
   const {user} = useContext(UserContext)
   const navigate = useNavigate()
 
-  useEffect( () => {
-    if(!user){
-      navigate("/");
-    }
-  }, [user])
+  // useEffect( () => {
+  //   if(!user){
+  //     navigate("/");
+  //   }
+  // }, [user])
   
 
   return (

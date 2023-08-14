@@ -55,7 +55,6 @@ exports.login = async (req, res) => {
                     email,
                     name: userDoc.name
                 })
-                console.log("res : ", token);
             })
         } else {
             res.status(400).json('Credenciais erradas')
@@ -73,7 +72,6 @@ exports.logout = (req, res) => {
 
 exports.profile =  (req, res) => {
     const { token } = req.cookies;
-    console.log("token : ", token)
     if (!token) {
         return 
     }
