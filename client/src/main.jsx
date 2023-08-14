@@ -11,6 +11,7 @@ import ErrorPage from "./routes/ErrorPage";
 import Register from "./routes/Register";
 import Post from "./routes/Post";
 import { UserContextProvider } from "./provider/UserContext";
+import CreatePost from "./routes/CreatePost";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/create-post",
+        element: <CreatePost />,
       },
       {
         path: "/post/:id",

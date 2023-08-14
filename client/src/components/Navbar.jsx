@@ -1,11 +1,44 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import { UserContext } from "../provider/UserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import axios from "axios";
 
 const Navbar = () => {
-  const { user, logout } = useContext(UserContext);
-  console.log(user)
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/auth/profile", {
+          withCredentials: true,
+        });
+
+        if(response.data){
+          setUser(response.data);
+        }
+        
+        console.log(response.data);
+      } catch (error) {
+        console.error("Erro ao obter o perfil do usuário", error);
+      }
+    };
+
+    getUser();
+  }, [setUser]);
+
+  function logout() {
+    fetch("http://localhost:5000/auth/logout", {
+      credentials: "include",
+      method: "POST",
+    })
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error("Erro ao efetuar logout", error);
+      });
+  }
 
   return (
     <nav className="w-full h-16 flex justify-between px-3 sm:px-40 items-center shadow-md">
@@ -16,14 +49,14 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </div>
 
-
       <div className="flex gap-2 items-center">
         {user ? (
           <>
-              {user.name}
-              <Button onClick={logout}>
-                Deslogar
-              </Button>
+            {user?.name}
+            <Link to="/create-post">
+              <Button>Criar publicação</Button>
+            </Link>
+            <Button onClick={logout}>Deslogar</Button>
           </>
         ) : (
           <>

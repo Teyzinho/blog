@@ -11,7 +11,7 @@ const Banner = () => {
         <img
           src="/public/banner.png"
           alt="banner"
-          className="object-cover filter brightness-75 transition-all w-full h-full sm:group-hover:scale-105"
+          className="object-cover filter brightness-75 transition-all w-full h-full"
         />
         {/* Desktop banner Content */}
         <div className="text-white absolute left-6 bottom-16 hidden flex-col gap-3 sm:flex">
@@ -36,7 +36,7 @@ const Banner = () => {
             <p>19 Jan 2023</p>
           </div>
 
-          <h3 className="font-medium text-xl">Inteligências Artificiais</h3>
+          <h3 className="font-medium text-xl ">Inteligências Artificiais</h3>
 
           <p className="text-sm">Qual será o futuro do mundo?</p>
 

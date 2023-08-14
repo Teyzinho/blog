@@ -1,7 +1,15 @@
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
-const jwt = require('jsonwebtoken')
-const User = require('../models/user.model')
+const jwt = require('jsonwebtoken');
+const User = require('../models/user.model');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 
 dotenv.config();
 
@@ -39,22 +47,41 @@ exports.login = async (req, res) => {
         const passOk = bcrypt.compareSync(password, userDoc.password) // usa a senha encriptada para comparar com a senha do banco do usuário
 
         if (passOk) {
-            jwt.sign({ email, id: userDoc._id }, secret, {}, (error, token) => {
-                if (error) throw error;
+
+            jwt.sign({ email, name:userDoc.name ,id: userDoc._id }, secret, {}, (err, token) => {
+                if (err) throw err;
                 res.cookie('token', token).json({
                     id: userDoc._id,
                     email,
                     name: userDoc.name
                 })
+                console.log("res : ", token);
             })
         } else {
             res.status(400).json('Credenciais erradas')
         }
 
-
-
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Erro ao logar' })
     }
+}
+
+exports.logout = (req, res) => {
+    res.cookie('token', '').json('ok');
+}
+
+exports.profile =  (req, res) => {
+    const { token } = req.cookies;
+    console.log("token : ", token)
+    if (!token) {
+        return 
+    }
+
+    jwt.verify(token, secret, {}, (error, info) => {
+        if (error) {
+            return res.status(403).json({ message: 'Forbidden' });
+        }
+        res.json(info);
+    });
 }
