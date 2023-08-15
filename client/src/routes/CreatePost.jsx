@@ -14,7 +14,7 @@ const CreatePost = () => {
   }, [user])
 
   return (
-    <main className='px-3 md:px-20 xl:px-40 2xl:px-96'>
+    <main className='small_container_padding'>
 
       <PostForm type="create"/>
 

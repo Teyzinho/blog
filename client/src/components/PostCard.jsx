@@ -9,7 +9,7 @@ const PostCard = ({ post }) => {
 
   return (
     <div className="relative overflow-hidden">
-      <Link to="/">
+      <Link to={`/post/${post._id}`}>
         <img
           src={post.imgUrl}
           alt="PostImg"
@@ -21,7 +21,7 @@ const PostCard = ({ post }) => {
           <p>{post.author.name}</p>
           <p>{formattedDate}</p>
         </div>
-        <Link to="/">
+        <Link to={`/post/${post._id}`}>
           <h3 className="text-xl sm:text-3xl font-medium">{post.title}</h3>
         </Link>
         <p className="text-sm sm:text-base">{post.summary}</p>

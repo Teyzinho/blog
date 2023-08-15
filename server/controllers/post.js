@@ -12,7 +12,7 @@ app.use(cookieParser());
 const secret = process.env.SECRET;
 
 exports.create = async (req, res) => {
-    const { summary, content, title, img , categories} = req.body
+    const { summary, content, title, img, categories } = req.body
 
     try {
         const uploadResponse = await cloudinary.uploader.upload(img)
@@ -20,8 +20,8 @@ exports.create = async (req, res) => {
 
         const { token } = req.cookies;
 
-        jwt.verify(token, secret, {} , async (err,info) => {
-            if(err) throw err;
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) throw err;
 
             const postDoc = await Post.create({
                 title,
@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
                 author: info.id,
                 categories
             })
-    
+
             res.status(201).json(postDoc)
 
         })
@@ -43,5 +43,12 @@ exports.create = async (req, res) => {
 }
 
 exports.get = async (req, res) => {
-    res.json(await Post.find().populate('author' , ['name']))
+    res.status(200).json(await Post.find().populate('author', ['name']).sort({ createdAt: -1 })
+        .limit(20))
+}
+
+exports.geyById = async (req, res) => {
+    const {id} = req.params
+    const postDoc = await Post.findById(id).populate('author', ['name'])
+    res.status(200).json(postDoc)
 }

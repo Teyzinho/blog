@@ -5,3 +5,7 @@
 .container_padding{
     @apply px-5 md:px-20 xl:px-36 2xl:px-40
 }
+
+.small_container_padding{
+    @apply px-3 md:px-20 xl:px-40 2xl:px-96
+}
