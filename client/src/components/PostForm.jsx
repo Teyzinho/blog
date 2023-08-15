@@ -5,6 +5,7 @@ import Button from "./Button";
 import { useState } from "react";
 import Quill from "./Quill";
 import { useNavigate } from "react-router-dom";
+import Tag from "./Tag";
 
 const PostForm = ({ type }) => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const PostForm = ({ type }) => {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [img, setImg] = useState();
+  const [category , setCategory] = useState("")
+  const [categories, setCategories] = useState([]);
 
   const previewFile = (file) => {
     const reader = new FileReader();
@@ -27,29 +30,42 @@ const PostForm = ({ type }) => {
     previewFile(file);
   };
 
+  const handleAddTag = () => {
+    setCategories([...categories , category])
+    setCategory("")
+  }
+
+  const handleRemoveTag = (name) => {
+    const updateCategories = categories.filter(category => category !== name)
+    setCategories(updateCategories)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/post/create", {
-        summary,
-        content,
-        title,
-        img,
-      },
-      {
-        withCredentials: true
-      });
+      const response = await axios.post(
+        "http://localhost:5000/post/create",
+        {
+          summary,
+          content,
+          title,
+          img,
+          categories
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-      if(response.status === 201){
-        alert("Post Criado com sucesso!")
-        navigate("/")
+      if (response.status === 201) {
+        alert("Post Criado com sucesso!");
+        navigate("/");
       }
-
     } catch (error) {
-      console.log(error)
-      alert("Algo deu Errado!")
+      console.log(error);
+      alert("Algo deu Errado!");
       setIsLoading(false);
     } finally {
       setIsLoading(false);
@@ -83,12 +99,34 @@ const PostForm = ({ type }) => {
           disabled={isLoading}
         />
 
+        <div className="flex gap-2">
+          <FormInput
+            value={category}
+            type="text"
+            placeholder="Categoria"
+            setValue={setCategory}
+            disabled={isLoading}
+          />
+          <Button onClick={handleAddTag}>
+            Adicionar
+          </Button>
+        </div>
+
+        {categories.length > 0 && (
+          <div className="flex gap-2 flex-wrap">
+            {categories.map((category , index) => (
+              <Tag category={category} key={index} onClick={() => handleRemoveTag(category)}/>
+            ))}
+          </div>
+        )}
+
         <input type="file" onChange={handleFileChange} disabled={isLoading} />
         {img && (
           <img src={img} alt="previweImg" className="w-28 h-24 object-cover" />
         )}
-
-        <Quill content={content} setContent={setContent} />
+        <div className="h-fit">
+          <Quill content={content} setContent={setContent} />
+        </div>
 
         <Button type="submit" disabled={isLoading}>
           {type === "create" ? "Criar Post" : "Editar Post"}

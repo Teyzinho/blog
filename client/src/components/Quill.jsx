@@ -23,6 +23,9 @@ const Quill = ({content , setContent}) => {
       value={content}
       onChange={(newValue) => setContent(newValue)}
       modules={modules}
+      theme={'snow'}
+      className="min-h-[200px]"
+      placeholder="Conteudo"
     />
   );
 };

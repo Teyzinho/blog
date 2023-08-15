@@ -16,11 +16,19 @@ const PostSchema = new Schema({
     },
     imgUrl: {
         type: String,
+        require: true
     },
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        require: true
     },
+    categories: [
+        {
+            type: String,
+            required: true
+        }
+    ]
 }, {
     timestamps: true
 })

@@ -12,7 +12,7 @@ app.use(cookieParser());
 const secret = process.env.SECRET;
 
 exports.create = async (req, res) => {
-    const { summary, content, title, img } = req.body
+    const { summary, content, title, img , categories} = req.body
 
     try {
         const uploadResponse = await cloudinary.uploader.upload(img)
@@ -28,7 +28,8 @@ exports.create = async (req, res) => {
                 summary,
                 content,
                 imgUrl,
-                author: info.id
+                author: info.id,
+                categories
             })
     
             res.status(201).json(postDoc)

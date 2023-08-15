@@ -3,9 +3,8 @@ import { format } from "date-fns";
 
 import Tag from "./Tag";
 
-const PostCard = ({post}) => {
-
-  const data = new Date(post.createdAt)
+const PostCard = ({ post }) => {
+  const data = new Date(post.createdAt);
   const formattedDate = format(data, "dd MMM yyyy");
 
   return (
@@ -25,11 +24,11 @@ const PostCard = ({post}) => {
         <Link to="/">
           <h3 className="text-xl sm:text-3xl font-medium">{post.title}</h3>
         </Link>
-        <p className="text-sm sm:text-base">
-          {post.summary}
-        </p>
+        <p className="text-sm sm:text-base">{post.summary}</p>
         <div className="flex flex-wrap gap-2">
-          <Tag />
+          {post?.categories.map((category) => (
+            <Tag category={category} />
+          ))}
         </div>
       </div>
     </div>
