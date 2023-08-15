@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
+// const cors = require('cors');
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+// app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 
 dotenv.config();
 
@@ -73,7 +73,7 @@ exports.logout = (req, res) => {
 exports.profile =  (req, res) => {
     const { token } = req.cookies;
     if (!token) {
-        return 
+        return res.status(401).json({ message: 'No token' });
     }
 
     jwt.verify(token, secret, {}, (error, info) => {

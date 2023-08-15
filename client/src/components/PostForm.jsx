@@ -1,66 +1,56 @@
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
 import axios from "axios";
 
 import FormInput from "./FormInput";
 import Button from "./Button";
 import { useState } from "react";
-
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, false] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image"],
-    ["clean"],
-  ],
-};
+import Quill from "./Quill";
+import { useNavigate } from "react-router-dom";
 
 const PostForm = ({ type }) => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
-  const [img, setImg] = useState()
+  const [img, setImg] = useState();
 
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setImg(reader.result);
-      };
-  }
+    reader.onloadend = () => {
+      setImg(reader.result);
+    };
+  };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    previewFile(file)
-  }
-
+    const file = e.target.files[0];
+    previewFile(file);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const values = {
-      summary,
-      content,
-      title,
-      img
-    }
-
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/post/create",
-        values
-        ,
-      );
+      const response = await axios.post("http://localhost:5000/post/create", {
+        summary,
+        content,
+        title,
+        img,
+      },
+      {
+        withCredentials: true
+      });
+
+      if(response.status === 201){
+        alert("Post Criado com sucesso!")
+        navigate("/")
+      }
+
     } catch (error) {
+      console.log(error)
+      alert("Algo deu Errado!")
+      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
@@ -82,6 +72,7 @@ const PostForm = ({ type }) => {
           type="title"
           placeholder="Titulo"
           setValue={setTitle}
+          disabled={isLoading}
         />
 
         <FormInput
@@ -89,22 +80,17 @@ const PostForm = ({ type }) => {
           type="summary"
           placeholder="Sumário"
           setValue={setSummary}
+          disabled={isLoading}
         />
 
-        <input type="file" onChange={handleFileChange} />
-        {img && 
-          (
-            <img src={img} alt="previweImg" className="w-28 h-24 object-cover" />
-          )
-        }
+        <input type="file" onChange={handleFileChange} disabled={isLoading} />
+        {img && (
+          <img src={img} alt="previweImg" className="w-28 h-24 object-cover" />
+        )}
 
-        <ReactQuill
-          value={content}
-          onChange={(newValue) => setContent(newValue)}
-          modules={modules}
-        />
+        <Quill content={content} setContent={setContent} />
 
-        <Button type="submit">
+        <Button type="submit" disabled={isLoading}>
           {type === "create" ? "Criar Post" : "Editar Post"}
         </Button>
       </form>

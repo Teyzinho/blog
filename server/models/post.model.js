@@ -6,7 +6,7 @@ const PostSchema = new Schema({
         type: String,
         require: true
     },
-    sumarry: {
+    summary: {
         type: String,
         require: true
     },
@@ -14,10 +14,15 @@ const PostSchema = new Schema({
         type: String,
         require: true
     },
+    imgUrl: {
+        type: String,
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+}, {
+    timestamps: true
 })
 
 const PostModel = model('Post', PostSchema)
