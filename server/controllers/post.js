@@ -41,4 +41,6 @@ exports.create = async (req, res) => {
     }
 }
 
-exports.get
+exports.get = async (req, res) => {
+    res.json(await Post.find().populate('author' , ['name']))
+}
