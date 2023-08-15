@@ -1,5 +1,4 @@
 import Filter from "./Filter";
-import Pagination from "./Pagination";
 import PostCard from "./PostCard";
 
 const Feed = ({posts}) => {
@@ -24,7 +23,6 @@ const Feed = ({posts}) => {
         }
       </div>
 
-      <Pagination />
     </main>
   );
 };

@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/:page",
+        element: <Home />,
+      },
+      {
         path: "/create-post",
         element: <CreatePost />,
       },

@@ -42,9 +42,28 @@ exports.create = async (req, res) => {
     }
 }
 
+const PAGE_SIZE = 6;
+
 exports.get = async (req, res) => {
-    res.status(200).json(await Post.find().populate('author', ['name']).sort({ createdAt: -1 })
-        .limit(20))
+    const { page = 1 } = req.query;
+
+    try {
+      const totalCount = await Post.countDocuments();
+      const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  
+      const posts = await Post.find()
+        .skip((page - 1) * PAGE_SIZE)
+        .limit(PAGE_SIZE)
+        .populate('author', ['name'])
+        .sort({ createdAt: -1 })
+        .exec();
+        
+  
+      res.json({ posts, totalPages });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error fetching posts' });
+    }
 }
 
 exports.geyById = async (req, res) => {

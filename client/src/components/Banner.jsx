@@ -5,7 +5,8 @@ import { format } from "date-fns";
 import Tag from "./Tag";
 
 const Banner = ({ post }) => {
-  const data = new Date(post.createdAt);
+
+  const data = new Date(post?.createdAt);
   const formattedDate = format(data, "dd MMM yyyy");
 
   return (
