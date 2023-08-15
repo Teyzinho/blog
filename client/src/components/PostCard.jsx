@@ -26,8 +26,8 @@ const PostCard = ({ post }) => {
         </Link>
         <p className="text-sm sm:text-base">{post.summary}</p>
         <div className="flex flex-wrap gap-2">
-          {post?.categories.map((category) => (
-            <Tag category={category} />
+          {post?.categories.map((category, index) => (
+            <Tag category={category} key={`${category}${index}`}/>
           ))}
         </div>
       </div>

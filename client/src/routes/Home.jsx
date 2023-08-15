@@ -6,14 +6,16 @@ import axios from "axios";
 const Home = () => {
 
   const [posts, setPosts] = useState([])
+  const [bannerPost, setBannerPost] = useState(null);
 
   useEffect(() => {
     const FetchPost = async () => {
       const response = await axios.get("http://localhost:5000/post/get")
 
       console.log("posts",response.data)
-
-      setPosts(response.data)
+      
+      setBannerPost(response.data[0]);
+      setPosts(response.data.slice(1))
     } 
 
     FetchPost()
@@ -29,7 +31,7 @@ const Home = () => {
         <p className='text-base sm:text-xl' >Desbravando o Universo da Tecnologia</p>
       </header>
 
-      <Banner />
+      <Banner post={bannerPost}/>
 
       <Feed posts={posts}/>
 

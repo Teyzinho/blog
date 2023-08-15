@@ -48,7 +48,7 @@ const Register = () => {
         </Link>
       </nav>
 
-      <main className="flex flex-col items-center">
+      <main className="flex flex-col items-center px-3">
         <div className="m-auto mt-20 w-fit flex flex-col items-center gap-4">
           <h1 className="font-semibold text-6xl">Cadastrar</h1>
 
@@ -62,7 +62,7 @@ const Register = () => {
 
         <form
           action=""
-          className="w-96 h-max mt-4 m-auto flex flex-col gap-5 relative"
+          className="w-[90%] sm:w-96 h-max mt-4 m-auto flex flex-col gap-5 relative"
           onSubmit={handleSubmit}
         >
           <Input
