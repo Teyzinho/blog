@@ -1,14 +1,31 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { BiFilter } from "react-icons/bi";
 
 import { Combobox, Transition } from "@headlessui/react";
+import axios from "axios";
 
-const tags = ["Dev", "Web Dev", "Tags", "Ui", "Inteligencia artificial"];
-
-const Filter = () => {
-  const [selected, setSelected] = useState("");
+const Filter = ({ setSelected, selected }) => {
   const [query, setQuery] = useState("");
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+
+        const response = await axios.get(
+          "http://localhost:5000/post/getcategories"
+        );
+
+        setTags(response.data)
+
+      } catch (error) {
+        console.error("Error fetching tags", error);
+      }
+    }
+
+    fetchTags();
+  }, []);
 
   const filteredTag =
     query === ""

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Banner from "../components/Banner";
 import Feed from "../components/Feed";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
-import { useNavigate, useParams } from "react-router-dom";
+import Filter from "../components/Filter";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [selectedCategory, setSelectedCategory] = useState(null);
   // Pagination
   const [totalPages, setTotalPages] = useState(1);
   const { page } = useParams();
@@ -24,15 +26,20 @@ const Home = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/post/get?page=${page}`
+          `http://localhost:5000/post/get?page=${page}&category=${
+            selectedCategory || ""
+          }`
         );
 
         console.log("posts", response.data.posts);
-        if (parseInt(page) === 1 || !page) {
+        console.log((parseInt(page) === 1 || !page) && !selectedCategory);
+
+        if ((parseInt(page) === 1 || !page) && !selectedCategory) {
           setBannerPost(response.data.posts[0]);
           setPosts(response.data.posts.slice(1));
         } else {
           setPosts(response.data.posts);
+          setBannerPost(null);
         }
 
         setTotalPages(response.data.totalPages);
@@ -44,7 +51,7 @@ const Home = () => {
     };
 
     FetchPost();
-  }, [page]);
+  }, [page, selectedCategory]);
 
   const handlePageChange = (newPage) => {
     navigate(`/${newPage}`);
@@ -62,11 +69,18 @@ const Home = () => {
         </p>
       </header>
 
-      {isLoading || !bannerPost || posts.length === 0 ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <>
-          {(parseInt(page) === 1 || !page) && <Banner post={bannerPost} />}
+          {bannerPost && <Banner post={bannerPost} />}
+
+          <div className="container_padding">
+            <Filter
+              setSelected={setSelectedCategory}
+              selected={selectedCategory}
+            />
+          </div>
 
           <Feed posts={posts} />
         </>

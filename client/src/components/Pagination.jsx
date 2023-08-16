@@ -8,7 +8,7 @@ const Pagination = ({ totalPages, handlePageChange, currentPage }) => {
       <button
         className="font-medium flex items-center gap-1 disabled:opacity-50"
         onClick={() => handlePageChange(parseInt(currentPage) - 1)}
-        disabled={currentPage < totalPages}
+        disabled={currentPage < totalPages || currentPage === 1}
       >
         <HiArrowNarrowLeft />
         Anterior

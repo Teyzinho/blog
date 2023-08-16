@@ -30,8 +30,6 @@ connectToDatabase()
 app.use('/auth', authRoutes)
 app.use('/post', postRoutes)
 
-
-
 const PORT = process.env.PORT || 5000 // Configuração da port
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`)

@@ -4,6 +4,7 @@ const postController = require('../controllers/post')
 
 router.post('/create', postController.create)
 router.get('/get', postController.get)
+router.get('/getcategories' , postController.getcategories)
 router.get('/:id' , postController.geyById)
 
 module.exports = router;
