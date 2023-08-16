@@ -7,9 +7,11 @@ const connectToDatabase = require('./config/db')
 const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/post')
 
+const clientUrl = process.env.CLIENT_URL;
+
 //Config
 const app = express()
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: clientUrl }));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb" }));
 
