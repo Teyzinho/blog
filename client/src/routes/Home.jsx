@@ -14,10 +14,11 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { page, category } = useParams();
+
+  const [selectedCategory, setSelectedCategory] = useState(category || null);
   // Pagination
   const [totalPages, setTotalPages] = useState(1);
-  const { page } = useParams();
 
   const navigate = useNavigate();
 
@@ -39,7 +40,6 @@ const Home = () => {
           setPosts(response.data.posts.slice(1));
         } else {
           setPosts(response.data.posts);
-          setBannerPost(null);
         }
 
         setTotalPages(response.data.totalPages);
@@ -69,11 +69,13 @@ const Home = () => {
         </p>
       </header>
 
+      {bannerPost && <Banner post={bannerPost} />}
+
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          {bannerPost && <Banner post={bannerPost} />}
+          
 
           <div className="container_padding">
             <Filter
