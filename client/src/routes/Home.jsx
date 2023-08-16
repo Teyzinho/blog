@@ -14,9 +14,9 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { page, category } = useParams();
+  const { page } = useParams();
 
-  const [selectedCategory, setSelectedCategory] = useState(category || null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   // Pagination
   const [totalPages, setTotalPages] = useState(1);
 
@@ -85,7 +85,7 @@ const Home = () => {
             />
           </div>
 
-          <Feed posts={posts} />
+          <Feed posts={posts} setSelectedCategory={setSelectedCategory}/>
         </>
       )}
       <div className="container_padding">

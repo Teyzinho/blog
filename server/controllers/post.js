@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
 }
 
 exports.get = async (req, res) => {
-    const PAGE_SIZE = 6;
+    const PAGE_SIZE = 7;
     const { page = 1, category } = req.query;
 
     try {

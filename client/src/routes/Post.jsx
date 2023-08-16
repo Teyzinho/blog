@@ -61,7 +61,7 @@ const Post = () => {
           className="w-full object-cover max-h-[500px]"
         />
 
-      <div dangerouslySetInnerHTML={{__html:post.content}} className="flex flex-col gap-7" />
+      <div dangerouslySetInnerHTML={{__html:post.content}} className="flex flex-col" />
 
       </div>
     </main>

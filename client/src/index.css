@@ -9,3 +9,15 @@
 .small_container_padding{
     @apply px-3 md:px-20 xl:px-40 2xl:px-96
 }
+
+h1{
+    @apply text-2xl sm:text-3xl font-medium
+}
+
+h2{
+    @apply text-xl sm:text-2xl font-medium
+}
+
+h3{
+    @apply text-lg sm:text-xl font-medium
+}

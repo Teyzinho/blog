@@ -3,9 +3,14 @@ import { format } from "date-fns";
 
 import Tag from "./Tag";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, setSelectedCategory }) => {
   const data = new Date(post.createdAt);
   const formattedDate = format(data, "dd MMM yyyy");
+
+  const handleTagClick = (category) => {
+    console.log("handle",category)
+    setSelectedCategory(category)
+  }
 
   return (
     <div className="relative overflow-hidden">
@@ -27,7 +32,11 @@ const PostCard = ({ post }) => {
         <p className="text-sm sm:text-base">{post.summary}</p>
         <div className="flex flex-wrap gap-2">
           {post?.categories.map((category, index) => (
-            <Tag category={category} key={`${category}${index}`}/>
+            <Tag
+              category={category}
+              onClick={() => handleTagClick(category)}
+              key={`${category}${index}`}
+            />
           ))}
         </div>
       </div>

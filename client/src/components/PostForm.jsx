@@ -18,6 +18,8 @@ const PostForm = ({ type }) => {
   const [categories, setCategories] = useState([]);
   const serverUrl = import.meta.env.VITE_SERVER_URL
 
+  console.log(content)
+
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
