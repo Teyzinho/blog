@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Input from "../components/Input";
@@ -10,6 +10,8 @@ const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const serverUrl = import.meta.env.VITE_SERVER_URL
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", {
+      const response = await axios.post(`${serverUrl}/auth/register`, {
         email,
         name,
         password
@@ -29,6 +31,7 @@ const Register = () => {
 
       console.log("Cadastrado com sucesso!");
       alert("Cadastrado com sucesso!")
+      navigate('/login');
     } catch (error) {
       console.error("erro ao registrar", error);
     } finally {

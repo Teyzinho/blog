@@ -6,11 +6,12 @@ import axios from "axios";
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/auth/profile", {
+        const response = await axios.get(`${serverUrl}/auth/profile`, {
           withCredentials: true,
         });
 
@@ -18,7 +19,6 @@ const Navbar = () => {
           setUser(response.data);
         }
         
-        console.log(response.data);
       } catch (error) {
         console.error("Erro ao obter o perfil do usuário", error);
       }
@@ -28,7 +28,7 @@ const Navbar = () => {
   }, [setUser]);
 
   function logout() {
-    fetch("http://localhost:5000/auth/logout", {
+    fetch(`${serverUrl}/auth/logout`, {
       credentials: "include",
       method: "POST",
     })

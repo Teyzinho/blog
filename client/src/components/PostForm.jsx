@@ -16,6 +16,7 @@ const PostForm = ({ type }) => {
   const [img, setImg] = useState();
   const [category , setCategory] = useState("")
   const [categories, setCategories] = useState([]);
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   const previewFile = (file) => {
     const reader = new FileReader();
@@ -46,7 +47,7 @@ const PostForm = ({ type }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/post/create",
+        `${serverUrl}/post/create`,
         {
           summary,
           content,

@@ -8,13 +8,14 @@ import axios from "axios";
 const Filter = ({ setSelected, selected }) => {
   const [query, setQuery] = useState("");
   const [tags, setTags] = useState([]);
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   useEffect(() => {
     const fetchTags = async () => {
       try {
 
         const response = await axios.get(
-          "http://localhost:5000/post/getcategories"
+          `${serverUrl}/post/getcategories`
         );
 
         setTags(response.data)

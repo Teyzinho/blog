@@ -14,6 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {setUser} = useContext(UserContext);
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/auth/login",
+        `${serverUrl}/auth/login`,
         {
           email,
           password

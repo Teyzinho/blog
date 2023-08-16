@@ -21,19 +21,20 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
+  console.log(import.meta.env.VITE_SOME_KEY)
+  console.log(import.meta.env.VITE_SERVER_URL)
+
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   useEffect(() => {
     const FetchPost = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/post/get?page=${page}&category=${
+          `${serverUrl}/post/get?page=${page}&category=${
             selectedCategory || ""
           }`
         );
-
-        console.log("posts", response.data.posts);
-        console.log((parseInt(page) === 1 || !page) && !selectedCategory);
 
         if ((parseInt(page) === 1 || !page) && !selectedCategory) {
           setBannerPost(response.data.posts[0]);

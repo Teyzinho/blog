@@ -11,12 +11,13 @@ const Post = () => {
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [formattedDate, setFormattedDate] = useState("");
+  const serverUrl = import.meta.env.VITE_SERVER_URL
 
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/post/${id}`);
+        const response = await axios.get(`${serverUrl}/post/${id}`);
 
         console.log("response", response.data);
         setPost(response.data);
