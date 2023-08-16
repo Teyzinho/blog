@@ -71,7 +71,25 @@ const PostForm = ({ type, postData }) => {
           navigate("/");
         }
       } else {
+        const response = await axios.put(
+          `${serverUrl}/post/update`,
+          {
+            summary,
+            content,
+            title,
+            img,
+            categories,
+            postId : postData._id
+          },
+          {
+            withCredentials: true,
+          }
+        );
 
+        if (response.status === 201) {
+          toast.success("Post Atualizado com sucesso!");
+          navigate(`/post/${postData._id}`);
+        }
       }
       
     } catch (error) {

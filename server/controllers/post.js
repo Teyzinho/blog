@@ -89,3 +89,46 @@ exports.getcategories = async (req, res) => {
         res.status(500).json({ error: 'Error fetching categories' });
     }
 }
+
+exports.update = async (req,res) => {
+
+    const { summary, content, title, img, categories , postId} = req.body
+
+    try {
+        const { token } = req.cookies;
+
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) throw err;
+            const oldPost = await Post.findById(postId)
+            const isAuthor = JSON.stringify(oldPost.author._id) === JSON.stringify(info.id) //verifica se o autor é o mesmo
+
+            if(!isAuthor){
+                res.json("voce não é o autor")
+                throw 'Autor inválido'
+            } 
+
+            if(img) {
+                const uploadResponse = await cloudinary.uploader.upload(img)
+                const imgUrl = uploadResponse.url;
+
+                await oldPost.updateOne({
+                    imgUrl
+                })
+            }
+
+            await oldPost.updateOne({
+                title,
+                summary,
+                content,
+                categories
+            })
+
+            res.status(201).json(oldPost)
+
+        })
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+}
