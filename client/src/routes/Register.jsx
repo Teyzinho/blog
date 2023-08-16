@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Input from "../components/Input";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [isSending, setIsSending] = useState(false);
@@ -19,7 +20,7 @@ const Register = () => {
 
     if (password !== confPassword) {
       setIsSending(false);
-      return alert("Senhas diferentes!");
+      return toast.error("Senhas diferentes!");
     }
 
     try {
@@ -30,7 +31,7 @@ const Register = () => {
       });
 
       console.log("Cadastrado com sucesso!");
-      alert("Cadastrado com sucesso!")
+      toast.success("Cadastrado com sucesso!")
       navigate('/login');
     } catch (error) {
       console.error("erro ao registrar", error);

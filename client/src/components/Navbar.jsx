@@ -55,7 +55,7 @@ const Navbar = () => {
           <>
             {user?.name}
             <Link to="/create-post">
-              <Button className="bg-white text-black border border-gray-300 hover:bg-gray-600 hover:text-white transition-all ">Publicar</Button>
+              <Button className="bg-white  border border-gray-300 hover:bg-gray-600 hover:text-white transition-all text-gray-950">Publicar</Button>
             </Link>
             <Button onClick={logout}>Deslogar</Button>
           </>

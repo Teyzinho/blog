@@ -5,7 +5,7 @@ const Button = ({children , className, onClick , disabled, type}) => {
       type={type || "button"}
       disabled={disabled}
       onClick={onClick || (() => {})}
-      className={`px-3 py-2 rounded-lg text-white bg-gray-950 ${className} disabled:opacity-70`
+      className={`px-3 py-2 rounded-lg  disabled:opacity-70 ${className ? className : 'text-white bg-gray-950'}`
     }>
         {children}
     </button>

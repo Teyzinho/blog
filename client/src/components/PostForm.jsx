@@ -7,6 +7,8 @@ import Quill from "./Quill";
 import { useNavigate } from "react-router-dom";
 import Tag from "./Tag";
 
+import { toast } from 'react-toastify';
+
 const PostForm = ({ type }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -63,12 +65,12 @@ const PostForm = ({ type }) => {
       );
 
       if (response.status === 201) {
-        alert("Post Criado com sucesso!");
+        toast.success("Post Criado com sucesso!");
         navigate("/");
       }
     } catch (error) {
       console.log(error);
-      alert("Algo deu Errado!");
+      toast.error("Algo deu Errado!");
       setIsLoading(false);
     } finally {
       setIsLoading(false);

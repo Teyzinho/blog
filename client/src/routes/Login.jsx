@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
 import Input from "../components/Input";
 import { UserContext } from "../provider/UserContext";
 
@@ -37,7 +39,7 @@ const Login = () => {
         const userInfo = response.data;
         localStorage.setItem('user', JSON.stringify(userInfo));
         setUser(userInfo);
-        alert("Logado com sucesso!");
+        toast.success("Logado com sucesso!");
         navigate('/');
         
       }
