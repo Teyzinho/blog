@@ -41,7 +41,8 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full h-16 flex justify-between px-3 sm:px-40 items-center shadow-md">
+    <>
+    <nav className="w-full h-16 flex justify-between px-3 sm:px-40 items-center shadow-md fixed z-50 bg-white">
       <div className="flex gap-2 items-center text-xl">
         <Link to="/" className="font-semibold">
           Blog
@@ -54,7 +55,7 @@ const Navbar = () => {
           <>
             {user?.name}
             <Link to="/create-post">
-              <Button>Criar publicação</Button>
+              <Button className="bg-white text-black border border-gray-300 hover:bg-gray-600 hover:text-white transition-all ">Publicar</Button>
             </Link>
             <Button onClick={logout}>Deslogar</Button>
           </>
@@ -68,6 +69,8 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+    <div className="h-16 w-full"/>
+    </>
   );
 };
 

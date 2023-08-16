@@ -5,25 +5,23 @@ import { BiFilter } from "react-icons/bi";
 import { Combobox, Transition } from "@headlessui/react";
 import axios from "axios";
 
+import trash from "../assets/lixo.svg"
+
 const Filter = ({ setSelected, selected }) => {
   const [query, setQuery] = useState("");
   const [tags, setTags] = useState([]);
-  const serverUrl = import.meta.env.VITE_SERVER_URL
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
 
   useEffect(() => {
     const fetchTags = async () => {
       try {
+        const response = await axios.get(`${serverUrl}/post/getcategories`);
 
-        const response = await axios.get(
-          `${serverUrl}/post/getcategories`
-        );
-
-        setTags(response.data)
-
+        setTags(response.data);
       } catch (error) {
         console.error("Error fetching tags", error);
       }
-    }
+    };
 
     fetchTags();
   }, []);
@@ -36,8 +34,8 @@ const Filter = ({ setSelected, selected }) => {
         });
 
   return (
-    <div className="w-full flex justify-end">
-      <div className="mt-8 sm:mt-28 w-40 relative">
+    <div className="w-full flex justify-end gap-2 mt-8 sm:mt-28">
+      <div className="w-40 relative ">
         <Combobox
           value={selected}
           onChange={setSelected}
@@ -101,6 +99,9 @@ const Filter = ({ setSelected, selected }) => {
           </Transition>
         </Combobox>
       </div>
+      <button onClick={() => setSelected(null)} className={`${!selected && 'hidden'} `}>
+          <img src={trash} alt="lixo" className="w-6 h-6"/>
+      </button>
     </div>
   );
 };
