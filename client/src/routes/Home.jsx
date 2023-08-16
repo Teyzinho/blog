@@ -21,8 +21,6 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
-  console.log(import.meta.env.VITE_SOME_KEY)
-  console.log(import.meta.env.VITE_SERVER_URL)
 
   const serverUrl = import.meta.env.VITE_SERVER_URL
 

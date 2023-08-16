@@ -15,6 +15,7 @@ import Register from "./routes/Register";
 import Post from "./routes/Post";
 import { UserContextProvider } from "./provider/UserContext";
 import CreatePost from "./routes/CreatePost";
+import EditPost from "./routes/EditPost";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <Post />,
+      },
+      {
+        path: "/edit/:id",
+        element: <EditPost />,
       },
     ],
   },

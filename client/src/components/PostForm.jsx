@@ -9,18 +9,19 @@ import Tag from "./Tag";
 
 import { toast } from 'react-toastify';
 
-const PostForm = ({ type }) => {
+const PostForm = ({ type, postData }) => {
+  
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [summary, setSummary] = useState("");
-  const [content, setContent] = useState("");
+
+  const [title, setTitle] = useState(postData?.title || "");
+  const [summary, setSummary] = useState(postData?.summary || "");
+  const [content, setContent] = useState(postData?.content || "");
   const [img, setImg] = useState();
   const [category , setCategory] = useState("")
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(postData?.categories || []);
   const serverUrl = import.meta.env.VITE_SERVER_URL
 
-  console.log(content)
 
   const previewFile = (file) => {
     const reader = new FileReader();
@@ -50,24 +51,29 @@ const PostForm = ({ type }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        `${serverUrl}/post/create`,
-        {
-          summary,
-          content,
-          title,
-          img,
-          categories
-        },
-        {
-          withCredentials: true,
+      if(type === 'create'){
+        const response = await axios.post(
+          `${serverUrl}/post/create`,
+          {
+            summary,
+            content,
+            title,
+            img,
+            categories
+          },
+          {
+            withCredentials: true,
+          }
+        );
+  
+        if (response.status === 201) {
+          toast.success("Post Criado com sucesso!");
+          navigate("/");
         }
-      );
+      } else {
 
-      if (response.status === 201) {
-        toast.success("Post Criado com sucesso!");
-        navigate("/");
       }
+      
     } catch (error) {
       console.log(error);
       toast.error("Algo deu Errado!");
