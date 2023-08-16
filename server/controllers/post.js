@@ -90,9 +90,9 @@ exports.getcategories = async (req, res) => {
     }
 }
 
-exports.update = async (req,res) => {
+exports.update = async (req, res) => {
 
-    const { summary, content, title, img, categories , postId} = req.body
+    const { summary, content, title, img, categories, postId } = req.body
 
     try {
         const { token } = req.cookies;
@@ -102,12 +102,12 @@ exports.update = async (req,res) => {
             const oldPost = await Post.findById(postId)
             const isAuthor = JSON.stringify(oldPost.author._id) === JSON.stringify(info.id) //verifica se o autor é o mesmo
 
-            if(!isAuthor){
+            if (!isAuthor) {
                 res.json("voce não é o autor")
                 throw 'Autor inválido'
-            } 
+            }
 
-            if(img) {
+            if (img) {
                 const uploadResponse = await cloudinary.uploader.upload(img)
                 const imgUrl = uploadResponse.url;
 
@@ -126,7 +126,35 @@ exports.update = async (req,res) => {
             res.status(201).json(oldPost)
 
         })
-        
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+}
+
+exports.delete = async (req, res) => {
+    const { postId } = req.body
+
+    try {
+        const { token } = req.cookies;
+
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) throw err;
+
+            const oldPost = await Post.findById(postId)
+            const isAuthor = JSON.stringify(oldPost.author._id) === JSON.stringify(info.id) //verifica se o autor é o mesmo
+
+            if (!isAuthor) {
+                res.json("voce não é o autor")
+                throw 'Autor inválido'
+            }
+
+            await oldPost.deleteOne()
+
+            res.status(200).json("deletado")
+        })
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Something went wrong' });

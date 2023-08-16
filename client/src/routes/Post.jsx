@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
+import { toast } from 'react-toastify';
 
 import Loading from "../components/Loading";
 import Tag from "../components/Tag";
-import {UserContext} from "../provider/UserContext";
+import { UserContext } from "../provider/UserContext";
 import Button from "../components/Button";
 
 const Post = () => {
@@ -14,9 +15,9 @@ const Post = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formattedDate, setFormattedDate] = useState("");
   const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const navigate = useNavigate()
 
   const { user } = useContext(UserContext);
-  console.log(user)
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -39,6 +40,24 @@ const Post = () => {
     fetchPost();
   }, []);
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`${serverUrl}/post/delete`, {
+        data: {
+            postId: post._id
+        },
+        withCredentials: true
+    });
+    if(response.status === 200){
+      toast.success("Deletado com sucesso!")
+      navigate("/");
+    }
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado")
+    }
+  };
+
   if (!post || isLoading) {
     return <Loading />;
   }
@@ -59,15 +78,16 @@ const Post = () => {
             ))}
           </div>
         </div>
-        {
-          user?.id === post?.author?._id && (
-            <Link to={`/edit/${post?._id}`} className="w-full flex justify-end">
-              <Button>
-                Editar Post
-              </Button>
+        {user?.id === post?.author?._id && (
+          <div className="w-full flex justify-end gap-2">
+            <Link to={`/edit/${post?._id}`}>
+              <Button>Editar Post</Button>
             </Link>
-          )
-        }
+            <Button onClick={handleDelete} className="bg-red-500 text-white">
+              Deletar
+            </Button>
+          </div>
+        )}
         <img
           src={post?.imgUrl}
           alt="banner"
